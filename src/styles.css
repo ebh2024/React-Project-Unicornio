@@ -1,0 +1,259 @@
+/* Custom styles for better visibility */
+.p-button {
+    margin: 0.2rem;
+}
+
+/* Estilos para los botones de acción */
+.p-button.p-button-warning.p-button-outlined {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.p-button.p-button-warning.p-button-outlined:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.p-button.p-button-danger.p-button-outlined {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.p-button.p-button-danger.p-button-outlined:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.p-button.p-button-success {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #ffffff;
+}
+
+.p-button.p-button-success:hover {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #ffffff;
+}
+
+.p-datatable {
+    background: var(--surface-card);
+    color: var(--text-color);
+}
+
+.p-datatable .p-datatable-header {
+    background: var(--surface-section);
+    color: var(--text-color);
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    background: var(--surface-ground);
+    color: var(--text-color);
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background: var(--surface-section);
+}
+
+.p-button.p-button-outlined {
+    background: transparent;
+    border: 1px solid;
+}
+
+.p-button.p-button-outlined:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+h1 {
+    color: var(--text-color);
+}
+
+.p-dialog {
+    background: var(--surface-card);
+    color: var(--text-color);
+}
+
+.p-inputtext {
+    background: var(--surface-ground);
+    color: var(--text-color);
+}
+
+.p-inputnumber-input {
+    background: var(--surface-ground);
+    color: var(--text-color);
+}
+
+/* Ensure icons are visible */
+.pi {
+    font-size: 1rem;
+    color: currentColor;
+}
+
+/* Estilos generales de texto */
+body {
+    color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
+    color: #ffffff !important;
+}
+
+.text-primary {
+    color: #ffffff !important;
+}
+
+/* Estilos para la tabla */
+.p-datatable {
+    background: var(--surface-card);
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    color: #ffffff !important;
+    background: var(--surface-section);
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    background: var(--surface-ground);
+    color: #ffffff !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    color: #ffffff !important;
+}
+
+/* Estilos para los botones */
+/* Botón de editar (azul) */
+.p-button.p-button-info.p-button-outlined {
+    border-color: #3B82F6;
+    color: #3B82F6;
+}
+
+.p-button.p-button-info.p-button-outlined:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: #3B82F6;
+    color: #3B82F6;
+}
+
+/* Botón de eliminar (rojo) */
+.p-button.p-button-danger.p-button-outlined {
+    border-color: #EF4444;
+    color: #EF4444;
+}
+
+.p-button.p-button-danger.p-button-outlined:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #EF4444;
+    color: #EF4444;
+}
+
+/* Botón de añadir/guardar (verde) */
+.p-button.p-button-success {
+    background: #22C55E;
+    border-color: #22C55E;
+    color: #ffffff;
+}
+
+.p-button.p-button-success:hover {
+    background: #16A34A;
+    border-color: #16A34A;
+    color: #ffffff;
+}
+
+/* Estilos para el diálogo */
+.p-dialog {
+    background: var(--surface-card);
+}
+
+.p-dialog .p-dialog-header {
+    color: #ffffff !important;
+}
+
+/* Estilo para el botón de cerrar del diálogo */
+.p-dialog .p-dialog-header .p-dialog-header-icon,
+.p-dialog .p-dialog-header .p-dialog-header-close-icon,
+.p-dialog .p-dialog-header .p-dialog-header-close,
+.p-dialog .p-dialog-header-close .p-icon {
+    color: #EF4444 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+    padding: 0;
+    margin: 0;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-radius: 50%;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-close-icon {
+    font-size: 1.5rem;
+}
+
+/* Estilos para los inputs */
+.p-inputtext, .p-inputnumber-input {
+    background: var(--surface-ground) !important;
+    color: #ffffff !important;
+}
+
+.p-inputtext:enabled:focus {
+    box-shadow: 0 0 0 2px #3B82F6;
+}
+
+/* Estilos para la página de inicio */
+.surface-ground {
+    background: var(--surface-ground);
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+/* Asegurar que los iconos sean visibles */
+.pi {
+    font-size: 1rem;
+    color: currentColor;
+}
+
+/* Estilos para mensajes de error */
+.p-error {
+    color: #EF4444 !important;
+}
+
+/* Estilos para el paginador */
+.p-paginator {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+    color: #ffffff !important;
+}
+
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+    color: #ffffff !important;
+}
+
+/* Estilos para tooltips */
+.p-tooltip {
+    color: #ffffff !important;
+} 

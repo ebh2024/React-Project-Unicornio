@@ -101,6 +101,7 @@ h1 {
 /* Estilos generales de texto */
 body {
     color: #ffffff;
+    background-color: var(--surface-ground);
 }
 
 h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
@@ -256,4 +257,204 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
 /* Estilos para tooltips */
 .p-tooltip {
     color: #ffffff !important;
+}
+
+/* Estilos de texto para inputs y campos de formulario */
+.p-inputtext,
+.p-inputnumber-input,
+.p-dropdown-label,
+.p-multiselect-label {
+    color: #ffffff !important;
+    background-color: var(--surface-card) !important;
+}
+
+/* Estilos para placeholder */
+.p-inputtext::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Estilos para texto en la tabla */
+.p-datatable .p-datatable-tbody > tr > td {
+    color: #ffffff !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    color: #ffffff !important;
+    background-color: var(--surface-section);
+}
+
+/* Estilos para el diálogo */
+.p-dialog {
+    color: #ffffff;
+}
+
+.p-dialog .p-dialog-header {
+    color: #ffffff !important;
+}
+
+.p-dialog .p-dialog-content {
+    color: #ffffff !important;
+    background-color: var(--surface-card);
+}
+
+/* Estilos para labels y texto de validación */
+label, 
+.p-error {
+    color: #ffffff !important;
+}
+
+/* Estilos para el paginador */
+.p-paginator {
+    background: transparent !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+    color: #ffffff !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background: var(--primary-color);
+    color: #ffffff !important;
+}
+
+/* Estilos para mensajes de error */
+.p-error {
+    color: #EF4444 !important;
+}
+
+/* Estilos para el diálogo de confirmación */
+.p-confirm-dialog .p-dialog-content {
+    background-color: var(--surface-card);
+    color: #ffffff !important;
+}
+
+.p-confirm-dialog .p-dialog-header {
+    background-color: var(--surface-card);
+    color: #ffffff !important;
+}
+
+.p-confirm-dialog .p-dialog-content .p-confirm-dialog-message {
+    color: #ffffff !important;
+}
+
+.p-confirm-dialog .p-dialog-footer {
+    background-color: var(--surface-card);
+    border-top: 1px solid var(--surface-border);
+    padding: 1rem;
+}
+
+.p-confirm-dialog .p-dialog-footer button {
+    margin: 0 0.5rem;
+}
+
+/* Botones en el diálogo de confirmación */
+.p-confirm-dialog .p-dialog-footer .p-button-danger {
+    background: #EF4444;
+    border-color: #EF4444;
+    color: #ffffff;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button-danger:hover {
+    background: #DC2626;
+    border-color: #DC2626;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button-outlined {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button-outlined:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Ícono de advertencia */
+.p-confirm-dialog .p-dialog-content .p-confirm-dialog-icon {
+    color: #FCD34D !important;
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-ground);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Estilos para el Toast */
+.p-toast {
+    opacity: 1 !important;
+}
+
+.p-toast .p-toast-message {
+    background: var(--surface-card);
+    border-left: 6px solid;
+    color: #ffffff;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+    border-color: #EF4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+    border-color: #22C55E;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.p-toast .p-toast-message.p-toast-message-info {
+    border-color: #3B82F6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.p-toast .p-toast-message.p-toast-message-warn {
+    border-color: #F59E0B;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+    padding: 1rem;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+    margin: 0 0 0 1rem;
+    color: #ffffff;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close {
+    color: #ffffff !important;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #EF4444 !important;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close-icon {
+    font-size: 1.25rem;
+    line-height: 1;
 } 

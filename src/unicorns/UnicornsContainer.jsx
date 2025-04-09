@@ -28,12 +28,7 @@ const UnicornsContainer = () => {
         const data = await getObjects();
         setUnicorns(data);
       } catch (error) {
-        toast.current.show({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudieron cargar los unicornios. Por favor, intente más tarde.',
-          life: 3000
-        });
+        showError('No se pudieron cargar los unicornios. Por favor, intente más tarde.');
       } finally {
         setLoading(false);
       }
@@ -41,6 +36,27 @@ const UnicornsContainer = () => {
 
     fetchUnicorns();
   }, []);
+
+  const showSuccess = (message) => {
+    toast.current.show({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+      life: 3000,
+      icon: 'pi pi-check-circle'
+    });
+  };
+
+  const showError = (message) => {
+    toast.current.show({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+      life: 5000,
+      icon: 'pi pi-times-circle',
+      closeIcon: 'pi pi-times'
+    });
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -75,43 +91,23 @@ const UnicornsContainer = () => {
     e.preventDefault();
     
     if (!validateForm()) {
-      toast.current.show({
-        severity: 'warn',
-        summary: 'Validación',
-        detail: 'Por favor, corrija los errores en el formulario',
-        life: 3000
-      });
+      showError('Por favor, corrija los errores en el formulario');
       return;
     }
 
     try {
       if (selectedUnicorn) {
         await updateObject(selectedUnicorn._id, formData);
-        toast.current.show({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Unicornio actualizado correctamente',
-          life: 3000
-        });
+        showSuccess('Unicornio actualizado correctamente');
       } else {
         await createObject(formData);
-        toast.current.show({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Unicornio creado correctamente',
-          life: 3000
-        });
+        showSuccess('Unicornio creado correctamente');
       }
       handleHideDialog();
       const updatedData = await getObjects();
       setUnicorns(updatedData);
     } catch (error) {
-      toast.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Hubo un problema al guardar el unicornio',
-        life: 3000
-      });
+      showError('Hubo un problema al guardar el unicornio');
     }
   };
 
@@ -120,19 +116,9 @@ const UnicornsContainer = () => {
       await deleteObject(id);
       const updatedData = await getObjects();
       setUnicorns(updatedData);
-      toast.current.show({
-        severity: 'success',
-        summary: 'Éxito',
-        detail: 'Unicornio eliminado correctamente',
-        life: 3000
-      });
+      showSuccess('Unicornio eliminado correctamente');
     } catch (error) {
-      toast.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'No se pudo eliminar el unicornio',
-        life: 3000
-      });
+      showError('No se pudo eliminar el unicornio');
     }
   };
 
@@ -162,7 +148,6 @@ const UnicornsContainer = () => {
 
   const handleFormChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Limpiar error del campo cuando el usuario empieza a escribir
     if (formErrors[field]) {
       setFormErrors(prev => ({ ...prev, [field]: undefined }));
     }
@@ -184,7 +169,7 @@ const UnicornsContainer = () => {
 
   return (
     <>
-      <Toast ref={toast} />
+      <Toast ref={toast} position="top-right" />
       <UnicornsView {...viewProps} />
     </>
   );

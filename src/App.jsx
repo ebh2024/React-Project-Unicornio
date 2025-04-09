@@ -17,7 +17,7 @@ function App() {
   return (
     <PrimeReactProvider>
       <Router>
-        <div className="min-h-screen bg-gray-900">
+        <div className="app-container">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/unicornios" element={<UnicornsContainer />} />

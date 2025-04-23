@@ -1,9 +1,9 @@
-/* Custom styles for better visibility */
+/* Custom styles for better visibility
 .p-button {
     margin: 0.2rem;
 }
 
-/* Estilos para los botones de acción */
+
 .p-button.p-button-warning.p-button-outlined {
     border-color: #f59e0b;
     color: #f59e0b;
@@ -92,13 +92,13 @@ h1 {
     color: var(--text-color);
 }
 
-/* Ensure icons are visible */
+
 .pi {
     font-size: 1rem;
     color: currentColor;
 }
 
-/* Estilos generales de texto */
+
 body {
     color: #ffffff;
     background-color: var(--surface-ground);
@@ -112,7 +112,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #ffffff !important;
 }
 
-/* Estilos para la tabla */
+
 .p-datatable {
     background: var(--surface-card);
 }
@@ -131,8 +131,6 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #ffffff !important;
 }
 
-/* Estilos para los botones */
-/* Botón de editar (azul) */
 .p-button.p-button-info.p-button-outlined {
     border-color: #3B82F6;
     color: #3B82F6;
@@ -144,7 +142,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #3B82F6;
 }
 
-/* Botón de eliminar (rojo) */
+
 .p-button.p-button-danger.p-button-outlined {
     border-color: #EF4444;
     color: #EF4444;
@@ -156,7 +154,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #EF4444;
 }
 
-/* Botón de añadir/guardar (verde) */
+
 .p-button.p-button-success {
     background: #22C55E;
     border-color: #22C55E;
@@ -169,7 +167,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #ffffff;
 }
 
-/* Estilos para el diálogo */
+
 .p-dialog {
     background: var(--surface-card);
 }
@@ -178,7 +176,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #ffffff !important;
 }
 
-/* Estilo para el botón de cerrar del diálogo */
+
 .p-dialog .p-dialog-header .p-dialog-header-icon,
 .p-dialog .p-dialog-header .p-dialog-header-close-icon,
 .p-dialog .p-dialog-header .p-dialog-header-close,
@@ -204,7 +202,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     font-size: 1.5rem;
 }
 
-/* Estilos para los inputs */
+
 .p-inputtext, .p-inputnumber-input {
     background: var(--surface-ground) !important;
     color: #ffffff !important;
@@ -214,7 +212,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     box-shadow: 0 0 0 2px #3B82F6;
 }
 
-/* Estilos para la página de inicio */
+
 .surface-ground {
     background: var(--surface-ground);
 }
@@ -226,18 +224,18 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     margin: 1rem;
 }
 
-/* Asegurar que los iconos sean visibles */
+
 .pi {
     font-size: 1rem;
     color: currentColor;
 }
 
-/* Estilos para mensajes de error */
+
 .p-error {
     color: #EF4444 !important;
 }
 
-/* Estilos para el paginador */
+
 .p-paginator {
     background: transparent !important;
     color: #ffffff !important;
@@ -254,12 +252,12 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     color: #ffffff !important;
 }
 
-/* Estilos para tooltips */
+
 .p-tooltip {
     color: #ffffff !important;
 }
 
-/* Estilos de texto para inputs y campos de formulario */
+
 .p-inputtext,
 .p-inputnumber-input,
 .p-dropdown-label,
@@ -268,12 +266,12 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     background-color: var(--surface-card) !important;
 }
 
-/* Estilos para placeholder */
+
 .p-inputtext::placeholder {
     color: rgba(255, 255, 255, 0.6) !important;
 }
 
-/* Estilos para texto en la tabla */
+
 .p-datatable .p-datatable-tbody > tr > td {
     color: #ffffff !important;
 }
@@ -283,7 +281,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     background-color: var(--surface-section);
 }
 
-/* Estilos para el diálogo */
+
 .p-dialog {
     color: #ffffff;
 }
@@ -297,13 +295,13 @@ h1, h2, h3, h4, h5, h6, p, span, label, .p-datatable {
     background-color: var(--surface-card);
 }
 
-/* Estilos para labels y texto de validación */
+
 label, 
 .p-error {
     color: #ffffff !important;
 }
 
-/* Estilos para el paginador */
+
 .p-paginator {
     background: transparent !important;
 }
@@ -321,12 +319,12 @@ label,
     color: #ffffff !important;
 }
 
-/* Estilos para mensajes de error */
+
 .p-error {
     color: #EF4444 !important;
 }
 
-/* Estilos para el diálogo de confirmación */
+
 .p-confirm-dialog .p-dialog-content {
     background-color: var(--surface-card);
     color: #ffffff !important;
@@ -351,7 +349,7 @@ label,
     margin: 0 0.5rem;
 }
 
-/* Botones en el diálogo de confirmación */
+
 .p-confirm-dialog .p-dialog-footer .p-button-danger {
     background: #EF4444;
     border-color: #EF4444;
@@ -372,7 +370,7 @@ label,
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Ícono de advertencia */
+
 .p-confirm-dialog .p-dialog-content .p-confirm-dialog-icon {
     color: #FCD34D !important;
     font-size: 2rem;
@@ -394,7 +392,7 @@ label,
     padding: 1rem;
 }
 
-/* Estilos para el Toast */
+
 .p-toast {
     opacity: 1 !important;
 }
@@ -457,4 +455,4 @@ label,
 .p-toast .p-toast-message .p-toast-icon-close-icon {
     font-size: 1.25rem;
     line-height: 1;
-} 
+}  */

@@ -21,6 +21,13 @@ const Home = () => {
                         className="p-button-rounded p-button-lg"
                         onClick={() => navigate('/unicornios')}
                     />
+                    <Button 
+                        label="Ir a Productos" 
+                        icon="pi pi-arrow-right"
+                        severity="success"
+                        className="p-button-rounded p-button-lg"
+                        onClick={() => navigate('/productos')}
+                    />                    
                 </div>
             </div>
         </div>

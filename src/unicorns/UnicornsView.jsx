@@ -1,254 +1,205 @@
-import PropTypes from 'prop-types';
+import React, { useRef, useMemo, useCallback } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { useNavigate } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
-import { classNames } from 'primereact/utils';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-/**
- * Componente de presentación para la vista de unicornios.
- * Maneja la interfaz de usuario y la presentación de datos.
- */
-const UnicornsView = ({
-  unicorns,
-  loading,
-  visible,
-  selectedUnicorn,
-  formData,
-  formErrors,
-  onSubmit,
-  onDelete,
-  onEdit,
-  onHideDialog,
-  onFormChange,
+const UnicornsView = ({ 
+  unicorns, 
+  loading, 
+  onEdit, 
+  deleteUnicorn, 
+  visible, 
+  selectedUnicorn, 
+  formData, 
+  formErrors, 
+  onSubmit, 
+  onHideDialog, 
+  onFormChange 
 }) => {
+  const toast = useRef(null);
   const navigate = useNavigate();
-  
-  const confirmDelete = (id) => {
-    confirmDialog({
-      message: '¿Estás seguro de que quieres eliminar este unicornio?',
-      header: 'Confirmar Eliminación',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Sí, eliminar',
-      rejectLabel: 'No, cancelar',
-      acceptClassName: 'p-button-danger',
-      rejectClassName: 'p-button-outlined',
-      accept: () => onDelete(id),
-      className: 'p-confirm-dialog'
-    });
-  };
+  const unicornsMemo = useMemo(() => unicorns, [unicorns]);
 
-  /**
-   * Renderiza los botones de acción para cada fila
-   * @param {Object} rowData - Datos de la fila actual
-   */
-  const actionBodyTemplate = (rowData) => (
-    <div className="flex gap-2 justify-content-center">
+  const handleNavigateHome = useCallback(() => navigate('/'), [navigate]);
+  const handleAddUnicorn = useCallback(() => onEdit(null), [onEdit]);
+
+  const confirmDelete = useCallback((id) => {
+    confirmDialog({
+      message: "¿Estás seguro de que quieres eliminar este unicornio?",
+      header: "Confirmar Eliminación",
+      icon: "pi pi-exclamation-triangle",
+      acceptLabel: "Sí, eliminar",
+      rejectLabel: "No, cancelar",
+      accept: async () => {
+        try {
+          await deleteUnicorn(id);
+        } catch (error) {
+          if (toast.current) {
+            toast.current.show({
+              severity: "error",
+              summary: "Error",
+              detail: error.message || "No se pudo eliminar el unicornio.",
+              life: 3000
+            });
+          }
+        }
+      }
+    });
+  }, [deleteUnicorn, toast]);
+
+  const ageBodyTemplate = useCallback((rowData) => `${rowData.age} años`, []);
+
+  const actionsBodyTemplate = useCallback((rowData) => (
+    <>
       <Button
         icon="pi pi-pencil"
-        rounded
-        outlined
-        className="p-button-warning"
+        severity="warning"
         onClick={() => onEdit(rowData)}
-        tooltip="Editar unicornio"
+        tooltip="Editar"
+        className="mr-2"
       />
       <Button
         icon="pi pi-trash"
-        rounded
-        outlined
         severity="danger"
         onClick={() => confirmDelete(rowData._id)}
-        tooltip="Eliminar unicornio"
+        tooltip="Eliminar"
       />
-    </div>
-  );
+    </>
+  ), [onEdit, confirmDelete]);
+
+  const renderFormDialog = () => {
+    if (!visible) return null;
+
+    return (
+      <Dialog 
+        visible={visible} 
+        onHide={onHideDialog} 
+        header={selectedUnicorn ? "Editar Unicornio" : "Crear Unicornio"}
+        modal
+        style={{ width: '450px' }}
+        footer={
+          <div>
+            <Button label="Cancelar" icon="pi pi-times" onClick={onHideDialog} className="p-button-text" />
+            <Button label="Guardar" icon="pi pi-check" onClick={onSubmit} autoFocus />
+          </div>
+        }
+      >
+        <div className="p-fluid">
+          <div className="field">
+            <label htmlFor="name" className="font-medium mb-1">Nombre</label>
+            <InputText 
+              id="name" 
+              name="name"
+              value={formData.name} 
+              onChange={(e) => onFormChange('name', e.target.value)}
+              className={formErrors.name ? 'p-invalid' : ''}
+            />
+            {formErrors.name && <small className="p-error">{formErrors.name}</small>}
+          </div>
+          
+          <div className="field">
+            <label htmlFor="color" className="font-medium mb-1">Color</label>
+            <InputText 
+              id="color" 
+              name="color"
+              value={formData.color} 
+              onChange={(e) => onFormChange('color', e.target.value)}
+              className={formErrors.color ? 'p-invalid' : ''}
+            />
+            {formErrors.color && <small className="p-error">{formErrors.color}</small>}
+          </div>
+          
+          <div className="field">
+            <label htmlFor="age" className="font-medium mb-1">Edad</label>
+            <InputNumber 
+              id="age" 
+              name="age"
+              value={formData.age} 
+              onChange={(e) => onFormChange('age', e.value)}
+              min={0} 
+              max={1000}
+              className={formErrors.age ? 'p-invalid' : ''}
+            />
+            {formErrors.age && <small className="p-error">{formErrors.age}</small>}
+          </div>
+          
+          <div className="field">
+            <label htmlFor="power" className="font-medium mb-1">Poder</label>
+            <InputText 
+              id="power" 
+              name="power"
+              value={formData.power} 
+              onChange={(e) => onFormChange('power', e.target.value)}
+              className={formErrors.power ? 'p-invalid' : ''}
+            />
+            {formErrors.power && <small className="p-error">{formErrors.power}</small>}
+          </div>
+        </div>
+      </Dialog>
+    );
+  };
 
   return (
-    <div className="flex flex-column min-h-[80vh]">
+    <>
+      <Toast ref={toast} />
       <div className="card">
-        <div className="flex justify-content-between align-items-center mb-4">
-          <div className="flex align-items-center gap-3">
-            <Button
-              icon="pi pi-home"
-              rounded
-              outlined
-              severity="info"
-              onClick={() => navigate('/')}
-              tooltip="Volver al inicio"
-            />
-            <h1 className="text-3xl font-bold text-900 m-0">Gestión de Unicornios</h1>
-          </div>
-          <Button
-            label="Añadir Unicornio"
-            icon="pi pi-plus"
-            severity="success"
-            onClick={() => onEdit(null)}
-          />
+        <div className="flex justify-between align-items-center mb-3">
+          <Button icon="pi pi-home" severity="info" onClick={handleNavigateHome} tooltip="Inicio" />
+          <h1>Gestión de Unicornios</h1>
+          <Button label="Añadir Unicornio" severity="success" onClick={handleAddUnicorn} />
         </div>
 
         <DataTable
-          value={unicorns}
+          value={unicornsMemo}
           loading={loading}
           paginator
           rows={10}
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          emptyMessage="No se encontraron unicornios"
-          className="p-datatable-striped"
-          showGridlines
-          stripedRows
+          emptyMessage="No hay unicornios disponibles"
+          responsiveLayout="scroll"
         >
-          <Column 
-            field="name" 
-            header="Nombre" 
-            sortable 
-            className="font-semibold"
-          />
-          <Column 
-            field="color" 
-            header="Color" 
-            sortable 
-          />
-          <Column 
-            field="age" 
-            header="Edad" 
-            sortable
-            body={(rowData) => `${rowData.age} años`}
-          />
-          <Column 
-            field="power" 
-            header="Poder Especial" 
-            sortable 
-          />
-          <Column 
-            body={actionBodyTemplate} 
-            header="Acciones"
-            style={{ width: '10rem' }}
-            className="text-center"
-          />
+          <Column field="name" header="Nombre" sortable />
+          <Column field="color" header="Color" sortable />
+          <Column field="age" header="Edad" sortable body={ageBodyTemplate} />
+          <Column field="power" header="Poder Especial" sortable />
+          <Column header="Acciones" body={actionsBodyTemplate} />
         </DataTable>
-
-        <Dialog
-          visible={visible}
-          onHide={onHideDialog}
-          header={selectedUnicorn ? 'Editar Unicornio' : 'Nuevo Unicornio'}
-          modal
-          className="p-fluid"
-          style={{ width: '450px' }}
-          closeIcon="pi pi-times"
-          showHeader={true}
-          closable={true}
-          footer={
-            <div className="flex justify-content-end gap-2">
-              <Button
-                label="Cancelar"
-                icon="pi pi-times"
-                severity="danger"
-                outlined
-                onClick={onHideDialog}
-              />
-              <Button
-                label={selectedUnicorn ? 'Actualizar' : 'Guardar'}
-                icon="pi pi-check"
-                type="submit"
-                severity="success"
-                form="unicornForm"
-              />
-            </div>
-          }
-        >
-          <form id="unicornForm" onSubmit={onSubmit} className="p-fluid">
-            <div className="field mb-4">
-              <label htmlFor="name" className={classNames({ 'p-error': formErrors.name })}>
-                Nombre del Unicornio*
-              </label>
-              <InputText
-                id="name"
-                value={formData.name}
-                onChange={(e) => onFormChange('name', e.target.value)}
-                className={classNames({ 'p-invalid': formErrors.name })}
-                aria-describedby="name-help"
-              />
-              {formErrors.name && <small className="p-error">{formErrors.name}</small>}
-            </div>
-
-            <div className="field mb-4">
-              <label htmlFor="color" className={classNames({ 'p-error': formErrors.color })}>
-                Color Principal*
-              </label>
-              <InputText
-                id="color"
-                value={formData.color}
-                onChange={(e) => onFormChange('color', e.target.value)}
-                className={classNames({ 'p-invalid': formErrors.color })}
-              />
-              {formErrors.color && <small className="p-error">{formErrors.color}</small>}
-            </div>
-
-            <div className="field mb-4">
-              <label htmlFor="age" className={classNames({ 'p-error': formErrors.age })}>
-                Edad*
-              </label>
-              <InputNumber
-                id="age"
-                value={formData.age}
-                onValueChange={(e) => onFormChange('age', e.value)}
-                className={classNames({ 'p-invalid': formErrors.age })}
-                min={0}
-                max={1000}
-              />
-              {formErrors.age && <small className="p-error">{formErrors.age}</small>}
-            </div>
-
-            <div className="field mb-4">
-              <label htmlFor="power" className={classNames({ 'p-error': formErrors.power })}>
-                Poder Especial*
-              </label>
-              <InputText
-                id="power"
-                value={formData.power}
-                onChange={(e) => onFormChange('power', e.target.value)}
-                className={classNames({ 'p-invalid': formErrors.power })}
-              />
-              {formErrors.power && <small className="p-error">{formErrors.power}</small>}
-            </div>
-          </form>
-        </Dialog>
-
-        <ConfirmDialog />
       </div>
-    </div>
+
+      <ConfirmDialog />
+      {renderFormDialog()}
+    </>
   );
 };
 
 UnicornsView.propTypes = {
-  unicorns: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-      age: PropTypes.number.isRequired,
-      power: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  unicorns: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  visible: PropTypes.bool.isRequired,
-  selectedUnicorn: PropTypes.object,
-  formData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
-    power: PropTypes.string.isRequired,
-  }).isRequired,
-  formErrors: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  onHideDialog: PropTypes.func.isRequired,
-  onFormChange: PropTypes.func.isRequired,
+  deleteUnicorn: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
+  selectedUnicorn: PropTypes.object,
+  formData: PropTypes.object,
+  formErrors: PropTypes.object,
+  onSubmit: PropTypes.func,
+  onHideDialog: PropTypes.func,
+  onFormChange: PropTypes.func
 };
 
-export default UnicornsView; 
+UnicornsView.defaultProps = {
+  visible: false,
+  selectedUnicorn: null,
+  formData: {},
+  formErrors: {},
+  onSubmit: () => {},
+  onHideDialog: () => {},
+  onFormChange: () => {}
+};
+
+export default React.memo(UnicornsView);

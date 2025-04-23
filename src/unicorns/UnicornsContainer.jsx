@@ -1,162 +1,147 @@
-import { useState, useEffect } from 'react';
-import { getObjects, createObject, updateObject, deleteObject } from '../services/api';
+import React, { useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react';
+import { UnicornContext } from '../context/UnicornContext';
 import { Toast } from 'primereact/toast';
-import { useRef } from 'react';
 import UnicornsView from './UnicornsView';
+import useUnicornForm from '../hooks/useUnicornForm';
 
-/**
- * Contenedor principal para la gestión de unicornios.
- * Maneja la lógica de negocio y el estado de la aplicación.
- */
+const TOAST_SETTINGS = {
+  success: {
+    severity: 'success',
+    summary: 'Éxito',
+    life: 3000,
+    icon: 'pi pi-check-circle',
+  },
+  error: {
+    severity: 'error',
+    summary: 'Error',
+    life: 5000,
+    icon: 'pi pi-times-circle',
+  }
+};
+
 const UnicornsContainer = () => {
   const toast = useRef(null);
-  const [unicorns, setUnicorns] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const { unicorns, loading, fetchUnicorns, createUnicorn, updateUnicorn, deleteUnicorn } = useContext(UnicornContext);
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [selectedUnicorn, setSelectedUnicorn] = useState(null);
-  const [formData, setFormData] = useState({
+
+  const initialFormState = useMemo(() => ({
     name: '',
     color: '',
     age: 5,
-    power: ''
-  });
-  const [formErrors, setFormErrors] = useState({});
+    power: '',
+  }), []);
+
+  const { formData, formErrors, setFormData, validateForm } = useUnicornForm(initialFormState);
+
+  const handleHideDialog = useCallback(() => {
+    setIsDialogVisible(false);
+
+    setTimeout(() => {
+      setSelectedUnicorn(null);
+      setFormData(initialFormState);
+    }, 100);
+  }, [setFormData, initialFormState]);
 
   useEffect(() => {
-    const fetchUnicorns = async () => {
-      try {
-        const data = await getObjects();
-        setUnicorns(data);
-      } catch (error) {
-        showError('No se pudieron cargar los unicornios. Por favor, intente más tarde.');
-      } finally {
-        setLoading(false);
+    let isMounted = true;
+
+    const loadUnicorns = async () => {
+      if (unicorns.length === 0 && !loading) {
+        try {
+          await fetchUnicorns();
+        } catch {
+          if (isMounted && toast.current) {
+            toast.current.show({
+              ...TOAST_SETTINGS.error,
+              detail: 'Error al cargar los unicornios. Intente nuevamente.'
+            });
+          }
+        }
       }
     };
 
-    fetchUnicorns();
+    loadUnicorns();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchUnicorns, unicorns.length, loading]);
+
+  const showToast = useCallback((type, message) => {
+    if (toast.current) {
+      toast.current.show({
+        ...TOAST_SETTINGS[type],
+        detail: message
+      });
+    }
   }, []);
 
-  const showSuccess = (message) => {
-    toast.current.show({
-      severity: 'success',
-      summary: 'Éxito',
-      detail: message,
-      life: 3000,
-      icon: 'pi pi-check-circle'
-    });
-  };
+  const showSuccess = useCallback((message) => {
+    showToast('success', message);
+  }, [showToast]);
 
-  const showError = (message) => {
-    toast.current.show({
-      severity: 'error',
-      summary: 'Error',
-      detail: message,
-      life: 5000,
-      icon: 'pi pi-times-circle',
-      closeIcon: 'pi pi-times'
-    });
-  };
+  const showError = useCallback((message) => {
+    showToast('error', message);
+  }, [showToast]);
 
-  const validateForm = () => {
-    const errors = {};
-    
-    if (!formData.name.trim()) {
-      errors.name = 'El nombre es requerido';
-    } else if (formData.name.length < 3) {
-      errors.name = 'El nombre debe tener al menos 3 caracteres';
-    }
-
-    if (!formData.color.trim()) {
-      errors.color = 'El color es requerido';
-    }
-
-    if (formData.age < 0) {
-      errors.age = 'La edad no puede ser negativa';
-    } else if (formData.age > 1000) {
-      errors.age = 'La edad no puede ser mayor a 1000 años';
-    }
-
-    if (!formData.power.trim()) {
-      errors.power = 'El poder es requerido';
-    } else if (formData.power.length < 5) {
-      errors.power = 'El poder debe tener al menos 5 caracteres';
-    }
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      showError('Por favor, corrija los errores en el formulario');
+  const handleSubmit = useCallback(async () => {
+    if (!validateForm(formData)) {
+      showError('Por favor, corrija los errores en el formulario.');
       return;
     }
 
     try {
       if (selectedUnicorn) {
-        await updateObject(selectedUnicorn._id, formData);
-        showSuccess('Unicornio actualizado correctamente');
+        await updateUnicorn(selectedUnicorn._id, formData);
+        showSuccess('Unicornio actualizado correctamente.');
       } else {
-        await createObject(formData);
-        showSuccess('Unicornio creado correctamente');
+        await createUnicorn(formData);
+        showSuccess('Unicornio creado correctamente.');
       }
       handleHideDialog();
-      const updatedData = await getObjects();
-      setUnicorns(updatedData);
-    } catch (error) {
-      showError('Hubo un problema al guardar el unicornio');
-    }
-  };
 
-  const handleDelete = async (id) => {
+      fetchUnicorns();
+    } catch (error) {
+      console.error('Error al guardar unicornio:', error);
+      const errorMessage = error?.message || 'Error desconocido';
+      showError(`Hubo un problema al guardar el unicornio: ${errorMessage}`);
+    }
+  }, [validateForm, formData, selectedUnicorn, updateUnicorn, createUnicorn, showSuccess, showError, handleHideDialog, fetchUnicorns]);
+
+  const handleDelete = useCallback(async (id) => {
     try {
-      await deleteObject(id);
-      const updatedData = await getObjects();
-      setUnicorns(updatedData);
+      await deleteUnicorn(id);
+      await fetchUnicorns();
       showSuccess('Unicornio eliminado correctamente');
     } catch (error) {
-      showError('No se pudo eliminar el unicornio');
+      console.error('Error al eliminar unicornio:', error);
+      showError(error?.message || 'No se pudo eliminar el unicornio');
     }
-  };
+  }, [deleteUnicorn, fetchUnicorns, showSuccess, showError]);
 
-  const handleEdit = (unicorn) => {
+  const handleEdit = useCallback((unicorn) => {
     setSelectedUnicorn(unicorn);
-    setFormData(unicorn ? {
-      name: unicorn.name,
-      color: unicorn.color,
-      age: unicorn.age,
-      power: unicorn.power
-    } : {
-      name: '',
-      color: '',
-      age: 5,
-      power: ''
-    });
-    setFormErrors({});
-    setVisible(true);
-  };
+    setFormData(unicorn ? { ...unicorn } : initialFormState);
+    setIsDialogVisible(true);
+  }, [setFormData, initialFormState]);
 
-  const handleHideDialog = () => {
-    setVisible(false);
-    setSelectedUnicorn(null);
-    setFormData({ name: '', color: '', age: 5, power: '' });
-    setFormErrors({});
-  };
-
-  const handleFormChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    if (formErrors[field]) {
-      setFormErrors(prev => ({ ...prev, [field]: undefined }));
+  const handleFormChange = useCallback((field, value) => {
+    if (field === 'age' && (isNaN(value) || value < 0)) {
+      value = 0;
     }
-  };
 
-  const viewProps = {
+    setFormData(prevData => {
+      const updatedData = { ...prevData, [field]: value };
+      validateForm(updatedData);
+      return updatedData;
+    });
+  }, [setFormData, validateForm]);
+
+  const viewProps = useMemo(() => ({
     unicorns,
     loading,
-    visible,
+    visible: isDialogVisible,
     selectedUnicorn,
     formData,
     formErrors,
@@ -164,15 +149,44 @@ const UnicornsContainer = () => {
     onDelete: handleDelete,
     onEdit: handleEdit,
     onHideDialog: handleHideDialog,
-    onFormChange: handleFormChange
-  };
+    onFormChange: handleFormChange,
+  }), [
+    unicorns,
+    loading,
+    isDialogVisible,
+    selectedUnicorn,
+    formData,
+    formErrors,
+    handleSubmit,
+    handleDelete,
+    handleEdit,
+    handleHideDialog,
+    handleFormChange
+  ]);
+
+  if (loading && unicorns.length === 0) {
+    return (
+      <>
+        <Toast ref={toast} position="top-right" />
+        <div className="loading-container">Cargando unicornios...</div>
+      </>
+    );
+  }
 
   return (
     <>
       <Toast ref={toast} position="top-right" />
-      <UnicornsView {...viewProps} />
+      <UnicornsView 
+        {...viewProps} 
+        deleteUnicorn={handleDelete} 
+      />
     </>
   );
 };
 
-export default UnicornsContainer; 
+function arePropsEqual(prevProps, nextProps) {
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
+}
+
+export default React.memo(UnicornsContainer, arePropsEqual);
+

@@ -14,12 +14,12 @@ const HomeView = () => {
         fontSize: '3em',
         marginBottom: '20px',
         color: '#333'
-      }}>Welcome to the Unicorn CRUD App!</h1>
+      }}>¡Bienvenido a la aplicación Unicorn CRUD!</h1>
       <p style={{
         fontSize: '1.2em',
         marginBottom: '30px',
         color: '#666'
-      }}>Click the link below to manage unicorns.</p>
+      }}>Haga clic en el enlace a continuación para administrar unicornios</p>
       <a href="/unicornios" style={{
         fontSize: '1.5em',
         padding: '10px 20px',
@@ -27,7 +27,7 @@ const HomeView = () => {
         color: '#fff',
         textDecoration: 'none',
         borderRadius: '5px'
-      }}>Manage Unicorns</a>
+      }}>Administrar unicornios</a>
     </div>
   );
 };

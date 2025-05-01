@@ -50,7 +50,7 @@ const ProductsView = () => {
         color: '#fff',
         textDecoration: 'none',
         borderRadius: '5px'
-      }}>Home</Link>
+      }}>Inicio</Link>
       <Link to="/productos/crear" style={{
         fontSize: '1.2em',
         padding: '5px 10px',
@@ -58,7 +58,7 @@ const ProductsView = () => {
         color: '#fff',
         textDecoration: 'none',
         borderRadius: '5px'
-      }}>New</Link>
+      }}>Nuevo</Link>
     </div>
   );
 
@@ -73,10 +73,10 @@ const ProductsView = () => {
       <DataTable value={products} header={header} style={{
         marginTop: '20px'
       }}>
-        <Column field="name" header="Name" sortable />
-        <Column field="price" header="Price" sortable />
-        <Column field="category" header="Category" sortable />
-        <Column body={actionBodyTemplate} header="Actions" />
+        <Column field="name" header="Nombre" sortable />
+        <Column field="price" header="Precio" sortable />
+        <Column field="category" header="Categoria" sortable />
+        <Column body={actionBodyTemplate} header="Acciones" />
       </DataTable>
     </div>
   );

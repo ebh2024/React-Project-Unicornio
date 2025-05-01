@@ -6,8 +6,8 @@ import { InputText } from 'primereact/inputtext';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  price: Yup.number().required('Price is required').positive('Price must be positive'),
+  name: Yup.string().required('El nombre es obligatorio'),
+  price: Yup.number().required('El precio es obligatorio').positive('El precio debe ser positivo'),
   category: Yup.string(),
 });
 
@@ -65,7 +65,7 @@ const ProductForm = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>{id ? 'Edit Product' : 'Create Product'}</h1>
+      <h1>{id ? 'Editar Producto' : 'Crear Producto'}</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -75,24 +75,24 @@ const ProductForm = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="field">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Nombre</label>
               <Field as={InputText} name="name" id="name" />
               <ErrorMessage name="name" component="div" className="p-error" />
             </div>
 
             <div className="field">
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Precio</label>
               <Field as={InputText} name="price" id="price" />
               <ErrorMessage name="price" component="div" className="p-error" />
             </div>
 
             <div className="field">
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Categoria</label>
               <Field as={InputText} name="category" id="category" />
               <ErrorMessage name="category" component="div" className="p-error" />
             </div>
 
-            <Button label="Save" type="submit" disabled={isSubmitting} />
+            <Button label="Guardar" type="submit" disabled={isSubmitting} />
           </Form>
         )}
       </Formik>

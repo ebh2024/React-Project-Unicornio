@@ -51,7 +51,7 @@ const UnicornForm = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>{unicornToEdit ? 'Edit Unicorn' : 'Create Unicorn'}</h1>
+      <h1>{unicornToEdit ? 'Editar Unicornio' : 'Crear Unicornio'}</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -61,13 +61,13 @@ const UnicornForm = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="field">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Nombre</label>
               <Field as={InputText} name="name" id="name" />
               <ErrorMessage name="name" component="div" className="p-error" />
             </div>
 
             <div className="field">
-              <label htmlFor="age">Age</label>
+              <label htmlFor="age">Edad</label>
               <Field as={InputText} name="age" id="age" />
               <ErrorMessage name="age" component="div" className="p-error" />
             </div>
@@ -79,12 +79,12 @@ const UnicornForm = () => {
             </div>
 
             <div className="field">
-              <label htmlFor="power">Power</label>
+              <label htmlFor="power">Poder</label>
               <Field as={InputText} name="power" id="power" />
               <ErrorMessage name="power" component="div" className="p-error" />
             </div>
 
-            <Button label={unicornToEdit ? 'Update' : 'Create'} type="submit" disabled={isSubmitting} />
+            <Button label={unicornToEdit ? 'Actualizar' : 'Crear'} type="submit" disabled={isSubmitting} />
           </Form>
         )}
       </Formik>

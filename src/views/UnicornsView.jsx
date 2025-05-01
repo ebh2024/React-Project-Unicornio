@@ -65,7 +65,7 @@ const UnicornsView = () => {
         color: '#fff',
         textDecoration: 'none',
         borderRadius: '5px'
-      }}>Home</Link>
+      }}>Inicio</Link>
       <Link to="/unicornios/crear" style={{
         fontSize: '1.2em',
         padding: '5px 10px',

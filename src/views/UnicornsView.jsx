@@ -4,6 +4,8 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { UnicornContext } from '../contexts/UnicornContext';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const UnicornsView = () => {
   const { unicorns, deleteUnicorn } = useContext(UnicornContext);
@@ -17,6 +19,27 @@ const UnicornsView = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este unicornio?')) {
       deleteUnicorn(id);
     }
+  };
+
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Listado de Unicornios', 14, 16);
+  
+    const tableColumn = ['Nombre', 'Edad', 'Color', 'Poder'];
+    const tableRows = unicorns.map(unicorn => [
+      unicorn.name,
+      unicorn.age,
+      unicorn.color,
+      unicorn.power
+    ]);
+  
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20
+    });
+  
+    doc.save('unicorns-list.pdf');
   };
 
   const actionBodyTemplate = (rowData) => {
@@ -51,6 +74,7 @@ const UnicornsView = () => {
         textDecoration: 'none',
         borderRadius: '5px'
       }}>Nuevo</Link>
+      <Button label="Exportar PDF" icon="pi pi-file-pdf" className="p-button-danger" onClick={exportPDF} />
     </div>
   );
 

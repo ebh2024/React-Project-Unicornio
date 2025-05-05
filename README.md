@@ -1,12 +1,50 @@
-# React + Vite
+# React-Project-Unicornio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación CRUD para gestionar unicornios, construida con React y PrimeReact.
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   Vite
+*   React
+*   PrimeReact
+*   React Router DOM
+*   Axios
 
-## Expanding the ESLint configuration
+## Prerrequisitos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*   Node.js y npm instalados
+
+## Instalación
+
+1.  Clonar el repositorio:
+
+    ```bash
+    git clone [URL del repositorio]
+    ```
+
+2.  Navegar al directorio del proyecto:
+
+    ```bash
+    cd React-Project-Unicornio
+    ```
+
+3.  Instalar las dependencias:
+
+    ```bash
+    npm install
+    ```
+
+## Ejecutando la Aplicación
+
+1.  Iniciar el servidor de desarrollo:
+
+    ```bash
+    npm run dev
+    ```
+
+2.  Abrir el navegador y navegar a `http://localhost:5173` (o el puerto que se muestra en la terminal).
+
+## Notas
+
+*   La aplicación utiliza una API simulada para fines de demostración.
+*   La API CRUDCRUD se utiliza para la persistencia de datos, pero debido a las restricciones de CORS, es posible que no funcione como se espera.

@@ -1,0 +1,49 @@
+.products-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.products-view-link-home {
+  font-size: 1.2em;
+  padding: 5px 10px;
+  background-color: #79d2e6; /* Light Teal/Blue */
+  color: #4a0e6b; /* Deep Purple */
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.products-view-link-home:hover {
+  background-color: #56a5b8; /* Darker Teal/Blue */
+}
+
+.products-view-link-new {
+  font-size: 1.2em;
+  padding: 5px 10px;
+  background-color: #c77dff; /* Bright Lavender/Pinkish */
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.products-view-link-new:hover {
+  background-color: #a347d1; /* Darker Lavender/Pinkish */
+}
+
+.products-view-datatable-container {
+  padding: 20px;
+  background-color: #f5f0fa; /* Very Light Greyish Lavender */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(74, 14, 107, 0.1); /* Shadow with Deep Purple tint */
+  border: 1px solid #e0cffc; /* Lighter Lavender border */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #4a0e6b; /* Deep Purple text for content inside */
+}
+
+.products-view-datatable {
+  margin-top: 20px;
+}

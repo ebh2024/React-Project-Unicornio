@@ -1,0 +1,80 @@
+.unicorn-form-container {
+  padding: 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #f5f0fa; /* Very Light Greyish Lavender */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(74, 14, 107, 0.1); /* Shadow with Deep Purple tint */
+  border: 1px solid #e0cffc; /* Lighter Lavender border */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.unicorn-form-container h1 {
+  text-align: center;
+  color: #4a0e6b; /* Deep Purple */
+  margin-bottom: 25px;
+}
+
+.unicorn-form-container .field {
+  margin-bottom: 20px;
+}
+
+.unicorn-form-container .field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #8c5fb2; /* Medium Purple */
+  font-weight: 500;
+}
+
+.unicorn-form-container .field .p-inputtext {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #d1b3ff; /* Lighter variant of Bright Lavender */
+  color: #4a0e6b; /* Deep Purple text */
+  background-color: #ffffff; /* Ensure input background is white for contrast */
+}
+
+.unicorn-form-container .field .p-inputtext:focus {
+  border-color: #c77dff; /* Bright Lavender/Pinkish */
+  box-shadow: 0 0 0 0.2rem rgba(199, 125, 255, 0.25);
+}
+
+.unicorn-form-container .p-error {
+  color: #e91e63; /* Pinkish-red for errors */
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.form-button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px; /* Increased margin-top for better spacing */
+}
+
+.unicorn-form-container .p-button {
+  /* Adjust width to auto for side-by-side buttons, or specify if needed */
+  width: auto; 
+  padding: 10px 20px; /* Adjusted padding */
+  font-size: 1em; /* Slightly reduced font size for grouped buttons */
+  /* margin-top is now handled by form-button-group */
+  background-color: #c77dff; /* Bright Lavender/Pinkish */
+  border: none;
+}
+
+.unicorn-form-container .p-button.p-button-text {
+  background-color: transparent;
+  color: #8c5fb2; /* Medium Purple for text button */
+  border: 1px solid #d1b3ff; /* Lighter variant of Bright Lavender for border */
+}
+
+.unicorn-form-container .p-button.p-button-text:hover {
+  background-color: rgba(140, 95, 178, 0.1); /* Slight hover for text button */
+  color: #4a0e6b; /* Deep Purple on hover */
+  border-color: #c77dff;
+}
+
+.unicorn-form-container .p-button:not(.p-button-text):hover {
+  background-color: #a347d1; /* Darker Lavender/Pinkish for primary button */
+}

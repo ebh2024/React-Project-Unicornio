@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useToast } from '../../contexts/ToastContext'; // Import useToast
+import './ProductForm.css';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
@@ -14,6 +16,7 @@ const validationSchema = Yup.object().shape({
 const ProductForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { showToast } = useToast(); // Use the toast hook
   const [productToEdit, setProductToEdit] = useState(null);
   const [products, setProducts] = useState(() => {
     const storedProducts = localStorage.getItem('products');
@@ -49,22 +52,25 @@ const ProductForm = () => {
           product.id === productToEdit.id ? { ...productToEdit, ...values } : product
         );
         setProducts(updatedProducts);
+        showToast('success', 'Éxito', 'Producto actualizado correctamente.');
       } else {
         // Create
         const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
         const newProduct = { id: newId, ...values };
         setProducts([...products, newProduct]);
+        showToast('success', 'Éxito', 'Producto creado correctamente.');
       }
       setSubmitting(false);
       navigate('/productos');
     } catch (error) {
       console.error('Error saving product:', error);
+      showToast('error', 'Error', 'No se pudo guardar el producto.');
       setSubmitting(false);
     }
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="product-form-container">
       <h1>{id ? 'Editar Producto' : 'Crear Producto'}</h1>
       <Formik
         initialValues={initialValues}
@@ -92,7 +98,22 @@ const ProductForm = () => {
               <ErrorMessage name="category" component="div" className="p-error" />
             </div>
 
-            <Button label="Guardar" type="submit" disabled={isSubmitting} />
+            <div className="form-button-group"> {/* Use the same class as UnicornForm */}
+              <Button 
+                label="Cancelar" 
+                icon="pi pi-times" 
+                className="p-button-text" 
+                onClick={() => navigate(-1)} 
+                type="button" 
+                disabled={isSubmitting} 
+              />
+              <Button 
+                label="Guardar" 
+                icon="pi pi-check" 
+                type="submit" 
+                disabled={isSubmitting} 
+              />
+            </div>
           </Form>
         )}
       </Formik>

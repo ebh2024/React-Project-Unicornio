@@ -1,0 +1,42 @@
+.home-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0e6ff; /* Light Lavender */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.home-view-title {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #4a0e6b; /* Deep Purple */
+}
+
+.home-view-text {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  color: #8c5fb2; /* Medium Purple */
+  text-align: center;
+}
+
+.home-view-link {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background-color: #c77dff; /* Bright Lavender/Pinkish */
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px; /* Add margin for spacing between links */
+}
+
+/* Remove bottom margin from the last link to avoid extra space */
+.home-view-link:last-child {
+  margin-bottom: 0;
+}
+
+.home-view-link:hover {
+  background-color: #a347d1; /* Darker Lavender/Pinkish */
+}

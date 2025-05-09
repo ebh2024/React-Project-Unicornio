@@ -1,0 +1,60 @@
+.product-form-container {
+  padding: 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #f5f0fa; /* Very Light Greyish Lavender */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(74, 14, 107, 0.1); /* Shadow with Deep Purple tint */
+  border: 1px solid #e0cffc; /* Lighter Lavender border */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.product-form-container h1 {
+  text-align: center;
+  color: #4a0e6b; /* Deep Purple */
+  margin-bottom: 25px;
+}
+
+.product-form-container .field {
+  margin-bottom: 20px;
+}
+
+.product-form-container .field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #8c5fb2; /* Medium Purple */
+  font-weight: 500;
+}
+
+.product-form-container .field .p-inputtext {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #d1b3ff; /* Lighter variant of Bright Lavender */
+  color: #4a0e6b; /* Deep Purple text */
+  background-color: #ffffff; /* Ensure input background is white for contrast */
+}
+
+.product-form-container .field .p-inputtext:focus {
+  border-color: #c77dff; /* Bright Lavender/Pinkish */
+  box-shadow: 0 0 0 0.2rem rgba(199, 125, 255, 0.25);
+}
+
+.product-form-container .p-error {
+  color: #e91e63; /* Pinkish-red for errors */
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.product-form-container .p-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  margin-top: 10px;
+  background-color: #c77dff; /* Bright Lavender/Pinkish */
+  border: none;
+}
+
+.product-form-container .p-button:hover {
+  background-color: #a347d1; /* Darker Lavender/Pinkish */
+}

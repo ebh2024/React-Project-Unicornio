@@ -3,9 +3,13 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '../../contexts/ToastContext'; // Import useToast
+import { confirmDialog } from 'primereact/confirmdialog'; // Import confirmDialog
+import './ProductsView.css';
 
 const ProductsView = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast(); // Use the toast hook
   const [products, setProducts] = useState(() => {
     const storedProducts = localStorage.getItem('products');
     return storedProducts ? JSON.parse(storedProducts) : [
@@ -23,56 +27,44 @@ const ProductsView = () => {
     navigate('/productos/editar/' + product.id);
   };
 
-  const deleteProduct = (id) => {
-    setProducts(products.filter((p) => p.id !== id));
+  const confirmDeleteProduct = (id, name) => {
+    confirmDialog({
+      message: `¿Estás seguro de que quieres eliminar el producto "${name}"?`,
+      header: 'Confirmar Eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptClassName: 'p-button-danger',
+      acceptLabel: 'Sí, eliminar',
+      rejectLabel: 'No, cancelar',
+      accept: () => {
+        setProducts(prevProducts => prevProducts.filter(p => p.id !== id));
+        showToast('success', 'Éxito', `Producto "${name}" eliminado.`);
+      },
+      reject: () => {
+        showToast('info', 'Cancelado', 'Eliminación cancelada.');
+      }
+    });
   };
 
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
         <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct(rowData)} />
-        <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => deleteProduct(rowData.id)} />
+        <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeleteProduct(rowData.id, rowData.name)} />
       </React.Fragment>
     );
   }
 
   const header = (
-    <div className="table-header" style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '10px'
-    }}>
-      <Link to="/" style={{
-        fontSize: '1.2em',
-        padding: '5px 10px',
-        backgroundColor: '#6c757d',
-        color: '#fff',
-        textDecoration: 'none',
-        borderRadius: '5px'
-      }}>Inicio</Link>
-      <Link to="/productos/crear" style={{
-        fontSize: '1.2em',
-        padding: '5px 10px',
-        backgroundColor: '#007bff',
-        color: '#fff',
-        textDecoration: 'none',
-        borderRadius: '5px'
-      }}>Nuevo</Link>
+    <div className="products-view-header">
+      <Link to="/" className="products-view-link-home">Inicio</Link>
+      <Link to="/productos/crear" className="products-view-link-new">Nuevo</Link>
     </div>
   );
 
 
   return (
-    <div className="datatable-crud-demo" style={{
-      padding: '20px',
-      backgroundColor: '#fff',
-      borderRadius: '5px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-      <DataTable value={products} header={header} style={{
-        marginTop: '20px'
-      }}>
+    <div className="products-view-datatable-container">
+      <DataTable value={products} header={header} className="products-view-datatable">
         <Column field="name" header="Nombre" sortable />
         <Column field="price" header="Precio" sortable />
         <Column field="category" header="Categoria" sortable />

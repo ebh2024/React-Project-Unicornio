@@ -1,1 +1,0 @@
-wsl docker build -t crud-unicornios . && wsl docker run -p 5173:5173 crud-unicornios

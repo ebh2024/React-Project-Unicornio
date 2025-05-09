@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const UnicornContext = createContext(null);
 
-const API_BASE_URL = 'https://crudcrud.com/api/4422b9ea150a48df805df602b47026d2/unicorns';
+const API_BASE_URL = '/crudapi/unicorns'; // Updated to use the new local proxy path and resource
 
 export const UnicornProvider = ({ children }) => {
   const [unicorns, setUnicorns] = useState([]);
@@ -66,4 +66,7 @@ export const UnicornProvider = ({ children }) => {
   );
 };
 
-export default UnicornProvider;
+// Note: Default export is UnicornProvider, not UnicornContext itself.
+// This is fine, but consumers import { UnicornProvider, UnicornContext } from '...';
+// or import UnicornProvider from '...'; and useContext(UnicornContext) after importing UnicornContext.
+// For consistency, often the provider is the default export.

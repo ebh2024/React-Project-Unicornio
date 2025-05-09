@@ -55,7 +55,7 @@
 
 .unicorn-form-container .p-button {
   /* Adjust width to auto for side-by-side buttons, or specify if needed */
-  width: auto; 
+  width: auto;
   padding: 10px 20px; /* Adjusted padding */
   font-size: 1em; /* Slightly reduced font size for grouped buttons */
   /* margin-top is now handled by form-button-group */

@@ -4,7 +4,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import { UnicornProvider } from './contexts/UnicornContext';
+import { UnicornProvider } from './modules/unicorns/context/UnicornContext'; // Updated path
 import { ToastProvider } from './contexts/ToastContext';
 import { ConfirmDialog } from 'primereact/confirmdialog'; // Import ConfirmDialog
 import UnicornModule from './modules/unicorns';

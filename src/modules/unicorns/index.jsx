@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import UnicornsView from '../../views/UnicornsView';
-import UnicornForm from '../../components/UnicornForm';
+import UnicornsView from './UnicornsView'; // Updated path
+import UnicornForm from './UnicornForm'; // Updated path
 
 const UnicornModule = () => {
   return (

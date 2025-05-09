@@ -3,16 +3,16 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
-import { UnicornContext } from '../contexts/UnicornContext';
-import { useToast } from '../contexts/ToastContext'; // Import useToast
-import { confirmDialog } from 'primereact/confirmdialog'; // Import confirmDialog
+import { UnicornContext } from './context/UnicornContext'; // Updated path
+import { useToast } from '../../contexts/ToastContext'; // Corrected path
+import { confirmDialog } from 'primereact/confirmdialog';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import './UnicornsView.css';
+import './UnicornsView.css'; // This path will be correct once CSS is also moved
 
 const UnicornsView = () => {
   const { unicorns, deleteUnicorn } = useContext(UnicornContext);
-  const { showToast } = useToast(); // Use the toast hook
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   const editUnicorn = (unicorn) => {
@@ -45,7 +45,7 @@ const UnicornsView = () => {
   const exportPDF = () => {
     const doc = new jsPDF();
     doc.text('Listado de Unicornios', 14, 16);
-  
+
     const tableColumn = ['Nombre', 'Edad', 'Color', 'Poder'];
     const tableRows = unicorns.map(unicorn => [
       unicorn.name,
@@ -53,13 +53,13 @@ const UnicornsView = () => {
       unicorn.color,
       unicorn.power
     ]);
-  
+
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20
     });
-  
+
     doc.save('unicorns-list.pdf');
   };
 

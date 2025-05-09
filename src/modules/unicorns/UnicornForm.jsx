@@ -3,10 +3,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { UnicornContext } from '../contexts/UnicornContext';
-import { useToast } from '../contexts/ToastContext'; // Import useToast
+import { UnicornContext } from './context/UnicornContext'; // Updated path
+import { useToast } from '../../contexts/ToastContext'; // Corrected path
 import { useNavigate, useParams } from 'react-router-dom';
-import './UnicornForm.css';
+import './UnicornForm.css'; // This path will be correct once CSS is also moved
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 
 const UnicornForm = () => {
   const { createUnicorn, editUnicorn, unicorns } = useContext(UnicornContext);
-  const { showToast } = useToast(); // Use the toast hook
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -91,19 +91,19 @@ const UnicornForm = () => {
             </div>
 
             <div className="form-button-group">
-              <Button 
-                label="Cancelar" 
-                icon="pi pi-times" 
-                className="p-button-text" 
-                onClick={() => navigate(-1)} 
-                type="button" 
-                disabled={isSubmitting} 
+              <Button
+                label="Cancelar"
+                icon="pi pi-times"
+                className="p-button-text"
+                onClick={() => navigate(-1)}
+                type="button"
+                disabled={isSubmitting}
               />
-              <Button 
-                label={unicornToEdit ? 'Actualizar' : 'Crear'} 
-                icon="pi pi-check" 
-                type="submit" 
-                disabled={isSubmitting} 
+              <Button
+                label={unicornToEdit ? 'Actualizar' : 'Crear'}
+                icon="pi pi-check"
+                type="submit"
+                disabled={isSubmitting}
               />
             </div>
           </Form>
